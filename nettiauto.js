@@ -7,7 +7,8 @@ const { convertArrayToCSV } = require('convert-array-to-csv');
 const converter = require('convert-array-to-csv');
 
 async function login(callback) {
-    const browser = await puppeteer.launch({headless: false});
+    console.log("Sarting ...");
+    const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.goto('https://www.nettiauto.com/en/statVehicle.php');
 
@@ -49,9 +50,10 @@ function chunkArray(myArray, chunk_size){
 login(async (page, browser) => {
 
     //================== change the bellow link only to scrape ====================================
-    url_to_scrape = 'https://www.nettiauto.com/en/statVehicle.php?sid_make=23&sid_model=&syear=&search=Show+Statistics';
+    // url_to_scrape = 'https://www.nettiauto.com/en/statVehicle.php?sid_make=23&sid_model=&syear=&search=Show+Statistics';
+    url_to_scrape = 'https://www.nettiauto.com/en/statVehicle.php?sid_make=31&sid_model=&syear=&search=Show+Statistics';
+    
     await page.goto(url_to_scrape);
-    // await page.waitForNavigation({timeout: 100000});
     await page.waitForSelector('.totPage');
 
     const totPage = (await page.$x('//*[@class="totPage"]'))[0];
@@ -61,9 +63,11 @@ login(async (page, browser) => {
     }, totPage);
 
     let total_page_in_num = Number(total_page);
-    console.log(total_page_in_num);
+    console.log("Total Page To Scrape: ",total_page_in_num);
 
     for (let i=1; i <= total_page_in_num; i++){
+        console.log("Current page: ", i);
+        console.log("Scraping ...");
         sleep.sleep(2);
         url_to_scrape_dyn = url_to_scrape + '&page=' + i;
         await page.goto(url_to_scrape_dyn);
@@ -71,7 +75,6 @@ login(async (page, browser) => {
 
 
         const selectors = await page.$$('.plr20 > ul > li');
-        console.log(selectors.length);
         let arr_child = [];
         let arr_parent = [];
         for(let tr of selectors){
@@ -91,15 +94,10 @@ login(async (page, browser) => {
        }
 
        const csv = convertArrayToCSV(result, options);
-        //    console.log(result);
-        //    var myJSON = JSON.stringify(result).replace('[', '{').replace(']','}');
-        // var myJSON = JSON.stringify(result)
-        // console.log(myJSON);
 
-        console.log(csv);
 
         // ============== change bellow file name in which file you want to store the data =============
-        let file_name = "test.csv";
+        let file_name = "isuzu.csv";
         fs.appendFileSync(file_name, csv, function(err) {
             if (err) {
                 console.log(err);
@@ -110,7 +108,7 @@ login(async (page, browser) => {
 
     }
 
-    // await browser.close();
+    await browser.close();
 
 
 });

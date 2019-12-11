@@ -9,6 +9,7 @@
   "author": "Tohfa Akib",
   "license": "ISC",
   "dependencies": {
+    "convert-array-to-csv": "^1.0.9",
     "puppeteer": "^2.0.0",
     "sleep": "^6.1.0"
   }

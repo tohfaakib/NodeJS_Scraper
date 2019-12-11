@@ -30,7 +30,7 @@ async function login(callback) {
 
 login(async (page, browser) => {
     await page.goto('https://www.nettiauto.com/en/statVehicle.php?sid_make=23&sid_model=&syear=&search=Show+Statistics');
-    await page.waitForNavigation();
+    // await page.waitForNavigation();
 
     const totPage = (await page.$x('//*[@class="totPage"]'))[0];
 

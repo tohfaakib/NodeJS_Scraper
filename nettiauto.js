@@ -1,7 +1,10 @@
-// import {$} from "puppeteer";
-
+var fs = require('fs');
 const puppeteer = require('puppeteer');
 const sleep = require('sleep');
+const readline = require('readline');
+
+const { convertArrayToCSV } = require('convert-array-to-csv');
+const converter = require('convert-array-to-csv');
 
 async function login(callback) {
     const browser = await puppeteer.launch({headless: false});
@@ -28,9 +31,28 @@ async function login(callback) {
 
 }
 
+//Array Chunk
+function chunkArray(myArray, chunk_size){
+    var index = 0;
+    var arrayLength = myArray.length;
+    var tempArray = [];
+    
+    for (index = 0; index < arrayLength; index += chunk_size) {
+        myChunk = myArray.slice(index, index+chunk_size);
+        // Do something if you want with the group
+        tempArray.push(myChunk);
+    }
+
+    return tempArray;
+}
+
 login(async (page, browser) => {
-    await page.goto('https://www.nettiauto.com/en/statVehicle.php?sid_make=23&sid_model=&syear=&search=Show+Statistics');
-    // await page.waitForNavigation();
+
+    //================== change the bellow link only to scrape ====================================
+    url_to_scrape = 'https://www.nettiauto.com/en/statVehicle.php?sid_make=23&sid_model=&syear=&search=Show+Statistics';
+    await page.goto(url_to_scrape);
+    // await page.waitForNavigation({timeout: 100000});
+    await page.waitForSelector('.totPage');
 
     const totPage = (await page.$x('//*[@class="totPage"]'))[0];
 
@@ -42,7 +64,50 @@ login(async (page, browser) => {
     console.log(total_page_in_num);
 
     for (let i=1; i <= total_page_in_num; i++){
-        console.log(i);
+        sleep.sleep(2);
+        url_to_scrape_dyn = url_to_scrape + '&page=' + i;
+        await page.goto(url_to_scrape_dyn);
+        await page.waitForSelector('.plr20');
+
+
+        const selectors = await page.$$('.plr20 > ul > li');
+        console.log(selectors.length);
+        let arr_child = [];
+        let arr_parent = [];
+        for(let tr of selectors){
+            
+            const trText = await page.evaluate(el => el.innerText, tr);
+           
+                arr_child.push(trText.trim());
+            
+        }
+
+       let result = chunkArray(arr_child, 5);
+       let header = ['Make & model', 'Year', 'Mileage', 'Price', 'Sold date']
+
+       let options = {
+            header: header,
+            separator: ','
+       }
+
+       const csv = convertArrayToCSV(result, options);
+        //    console.log(result);
+        //    var myJSON = JSON.stringify(result).replace('[', '{').replace(']','}');
+        // var myJSON = JSON.stringify(result)
+        // console.log(myJSON);
+
+        console.log(csv);
+
+        // ============== change bellow file name in which file you want to store the data =============
+        let file_name = "test.csv";
+        fs.appendFileSync(file_name, csv, function(err) {
+            if (err) {
+                console.log(err);
+            }
+        });
+
+
+
     }
 
     // await browser.close();

@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dafa954b-6234-41e0-b798-0d746085808e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ford.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/isuzu.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,8 +47,8 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Node.js.main_userinput.js">
-    <configuration name="main_userinput.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/main_userinput.js" working-dir="$PROJECT_DIR$">
+  <component name="RunManager" selected="Node.js.main.js">
+    <configuration name="main.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/main.js" working-dir="$PROJECT_DIR$">
       <method v="2" />
     </configuration>
     <configuration name="nettiauto.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/nettiauto.js" working-dir="$PROJECT_DIR$">
@@ -60,7 +56,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Node.js.main_userinput.js" />
+        <item itemvalue="Node.js.main.js" />
         <item itemvalue="Node.js.nettiauto.js" />
       </list>
     </recent_temporary>
@@ -88,7 +84,7 @@
       <option name="presentableId" value="Default" />
       <updated>1576035029700</updated>
       <workItem from="1576035031727" duration="18966000" />
-      <workItem from="1576120316376" duration="1690000" />
+      <workItem from="1576120316376" duration="2749000" />
     </task>
     <servers />
   </component>

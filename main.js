@@ -95,6 +95,7 @@ login(async (page, browser) => {
     }
 
     await browser.close();
+    console.log("Scraping Done!")
 
 
 });

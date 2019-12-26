@@ -1,23 +1,37 @@
 const puppeteer = require('puppeteer');
 
 
-async function login(callback) {
+async function get_url(callback) {
     console.log("Sarting ...");
     const browser = await puppeteer.launch({headless: false});
     const page = await browser.newPage();
-    await page.goto('https://losangeles.craigslist.org/search/cta?s=0&max_auto_year=1975&max_price=10000&min_price=30');
 
-    const selectors = await page.$$('.result-row > a');
-    let urls_list = [];
-    for(let href of selectors){
+    let i = 0;
 
-        const s_url = await page.evaluate(el => el.href, href);
 
-        urls_list.push(s_url.trim());
+    while (true) {
 
+            await page.goto('https://losangeles.craigslist.org/search/cta?s='+i+'&max_auto_year=1975&max_price=10000&min_price=30');
+
+            const selectors = await page.$$('.result-row > a');
+            let urls_list = [];
+            for (let href of selectors) {
+
+                const s_url = await page.evaluate(el => el.href, href);
+
+                urls_list.push(s_url.trim());
+
+            }
+
+            if(urls_list.length === 0){
+                break;
+            } else {
+                console.log(urls_list);
+                i = i + 120;
+            }
     }
 
-    console.log(urls_list);
+    await browser.close();
 
 
     // sleep.sleep(10);
@@ -27,7 +41,7 @@ async function login(callback) {
 
 
 
-login(async (page, browser) => {
+get_url(async (page, browser) => {
 
     //================== change the bellow link only to scrape ====================================
     // url_to_scrape = 'https://www.nettiauto.com/en/statVehicle.php?sid_make=23&sid_model=&syear=&search=Show+Statistics';

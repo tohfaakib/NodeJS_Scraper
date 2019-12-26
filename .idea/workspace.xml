@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="dafa954b-6234-41e0-b798-0d746085808e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/craiglist/pre.js" beforeDir="false" afterPath="$PROJECT_DIR$/craiglist/pre.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +87,7 @@
       <updated>1576035029700</updated>
       <workItem from="1576035031727" duration="18966000" />
       <workItem from="1576120316376" duration="4661000" />
-      <workItem from="1577338539558" duration="3661000" />
+      <workItem from="1577338539558" duration="8357000" />
     </task>
     <servers />
   </component>
